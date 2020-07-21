@@ -8,8 +8,12 @@ const assertEqual = function(actual, expected) {
  
 };
 
+const head = function(array) {
+  return array[0];
+}
+
 // TEST CODE
-assertEqual("Lighthouse Labs", "Bootcamp");
-assertEqual(1, 1);
-assertEqual(false, true);
-assertEqual("Lighthouse", "lighthouse");
+assertEqual(head([5,6,7]), 5);
+assertEqual(head(["Hello", "Lighthouse", "Labs"]), "Hello");
+assertEqual(head(["Labs"]), "Hello");
+assertEqual(head([]), "Hello");
