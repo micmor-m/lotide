@@ -21,16 +21,17 @@ Items in our case will be limited to Strings.
 const countOnly = function(allItems, itemsToCount) {
   const results = {};
 
-  let i = 0;
+  //let i = 0;
   for (const item of allItems) {
-    //console.log(item);
-    if (results[item] !== undefined) {
-      results[item] += 1;
-    } else {
-      results[item] = 1;
+    if (itemsToCount[item]) {
+      if (results[item] !== undefined) {
+        results[item] += 1;
+      } else {
+        results[item] = 1;
+      }
     }
   }
-  //console.log(results);
+  console.log(results);
   return results;
 };
 
