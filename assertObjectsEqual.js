@@ -1,3 +1,22 @@
+/*
+//FUNCTION eqArrays #########################
+Implement a function eqArrays which takes in two arrays
+ and returns true or false, based on a perfect match.
+*/
+const eqArrays = function(array1, array2) {
+  if (array1.length !== array2.length) {
+    return false;
+  } else {
+    for (let i = 0; i < array1.length; i++) {
+      if (array1[i] !== array2[i]) {
+        return false;
+      }
+    }
+  }
+  return true;
+};
+
+
 //FUNCTION eqObjects #########################
 const eqObjects = function(object1, object2) {
   
@@ -22,8 +41,8 @@ const eqObjects = function(object1, object2) {
     //console.log("Obj2 is array", Obj2IsArray);
 
     if (Obj1IsArray && Obj2IsArray) { //if both are array
-      let qArrayResult = eqArrays(object1[key], object2[key]); //run the eq Array function
-      if (qArrayResult === false) { //if eqArray return false return false and exit the function
+      let eqArrayResult = eqArrays(object1[key], object2[key]); //run the eq Array function
+      if (eqArrayResult === false) { //if eqArray return false return false and exit the function
         return false;
       }
     } else { //if not array consider them primitive value and check them
@@ -40,17 +59,19 @@ const eqObjects = function(object1, object2) {
 ////FUNCTION assertObjectsEqua #########################
 const assertObjectsEqual = function(actual, expected) {
   
-  let comparation = eqObjects(actual, expected);
+  const inspect = require('util').inspect; //!!!!!!!!!!!!!!inspect function from the library. Without the result from assertObjectEqual will be:
+  let comparation = eqObjects(actual, expected);                                     //Assertion Passed: [object Object] === [object Object]
 
   if (comparation === true) {
-    console.log(`✅✅✅ Assertion Passed: ${actual} === ${expected}`);
+    console.log(`✅✅✅ Assertion Passed: ${inspect(actual)} === ${inspect(expected)}`);
   } else if (comparation === false) {
-    console.log(`🛑🛑🛑 Assertion Failed: ${actual} !== ${expected} different lenght`)
+    console.log(`🛑🛑🛑 Assertion Failed: ${inspect(actual)} !== ${inspect(expected)} different lenght`);
   }
 };
 
 
-//Primitive value
+//For test
+/*
 const ab = { a: "1", b: "2" };
 const ba = { b: "2", a: "1" };
 //const ab = { a: 4, b: "2" };
@@ -72,7 +93,10 @@ const cd2 = { c: "1", d: ["2", 3, 4] };
 
 //assertEqual(eqObjects(cd, dc), true);
 //assertEqual(eqObjects(cd, cd2), false);
+*/
 
-//For test
 
-assertObjectsEqual(ab, ba);
+assertObjectsEqual(eqObjects({ a: "1", b: "2" }, { b: "2", a: "1" }), true);
+assertObjectsEqual(eqObjects({ a: "1", b: "2" }, { a: "1", b: "2", c: "3" }), false);
+assertObjectsEqual(eqObjects({ c: "1", d: ["2", 3] }, { d: ["2", 3], c: "1" }), true);
+assertObjectsEqual(eqObjects({ c: "1", d: ["2", 3] }, { c: "1", d: ["2", 3, 4] }), false);
