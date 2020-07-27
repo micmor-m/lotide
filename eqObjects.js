@@ -30,6 +30,7 @@ const eqObjects = function(object1, object2) {
   let lengthObj1 = Object.keys(object1).length;
   let lengthObj2 = Object.keys(object2).length;
   //console.log(lengthObj1);
+  //console.log(lengthObj2);
   if (lengthObj1 !== lengthObj2) {
     return false;
   }
@@ -41,6 +42,8 @@ const eqObjects = function(object1, object2) {
   
   for (let key of arrayKeys) { //FOR .. OF loop through all KEY of the KEY array got by Object.keys(object1)
     //console.log("Key", key);
+    //console.log("Obj1-key " + object1[key]);
+    //console.log("Obj2-key " + object2[key]);
     let Obj1IsArray = (Array.isArray(object1[key])); //check if both value of the key are array
     let Obj2IsArray = (Array.isArray(object2[key]));
     //console.log("Obj1 is array", Obj1IsArray);
@@ -51,17 +54,23 @@ const eqObjects = function(object1, object2) {
       if (qArrayResult === false) { //if eqArray return false return false and exit the function
         return false;
       }
+    /* for now comment out this part of primitive value!!!!!!!!!!!!!!!!!
     } else { //if not array consider them primitive value and check them
       if (object1[key] !== object2[key]) {
         //console.log("Obj1", object1[key]);
         //console.log("Obj2", object2[key]);
         return false;
       }
+    }*/
+    } else { //if not array consider them object
+      eqObjects(object1[key], object2[key]);
     }
   }
   return true;
 };
 
+//assertEqual(eqObjects({ a: { z: [1, 3, 4, 5], y: "hello"}, b: 2 }, { a: { z: [1, 3, 4, 5], y: "hello" }, b: 2 }), true);
+assertEqual(eqObjects({ a: { z: 1 }, b: 2 }, { a: { z: 1 }, b: 2 }), true);
 
 //Primitive value
 const ab = { a: "1", b: "2" };
@@ -72,8 +81,8 @@ const ba = { b: "2", a: "1" };
 const abc = { a: "1", b: "2", c: "3" };
 //console.log(eqObjects(ab, abc)); // => false
 //For test
-assertEqual(eqObjects(ab, ba), true);
-assertEqual(eqObjects(ab, abc), false);
+//assertEqual(eqObjects(ab, ba), true);
+//assertEqual(eqObjects(ab, abc), false);
 
 //Array as value
 const cd = { c: "1", d: ["2", 3] };
@@ -83,5 +92,11 @@ const dc = { d: ["2", 3], c: "1" };
 const cd2 = { c: "1", d: ["2", 3, 4] };
 //console.log(eqObjects(cd, cd2)); // => false
 
-assertEqual(eqObjects(cd, dc), true);
-assertEqual(eqObjects(cd, cd2), false);
+
+//assertEqual(eqObjects(cd, cd2), false);
+//assertEqual(eqObjects(cd, dc), true);
+//assertEqual(eqObjects({ a: { y: 0, z: 1 }, b: 2 }, { a: { z: 1 }, b: 2 }), false);
+//assertEqual(eqObjects({ a: { y: 0, z: 1 }, b: 2 }, { a: 1, b: 2 }), false);
+//eqObjects({ a: { z: 1 }, b: 2 }, { a: { z: 1 }, b: 2 }) // => true
+//eqObjects({ a: { y: 0, z: 1 }, b: 2 }, { a: { z: 1 }, b: 2 }) // => false
+//eqObjects({ a: { y: 0, z: 1 }, b: 2 }, { a: 1, b: 2 }) // => false
