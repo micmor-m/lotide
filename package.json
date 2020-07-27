@@ -1,7 +1,7 @@
 {
-  "name": "lotide",
-  "version": "1.0.0",
-  "description": "",
+  "name": "@micmor-m/lotide",
+  "version": "1.0.1",
+  "description": "A mini clone of the Lodash",
   "main": "assertArraysEqual.js",
   "directories": {
     "test": "test"
@@ -13,7 +13,7 @@
     "type": "git",
     "url": "git+https://github.com/micmor-m/lotide.git"
   },
-  "author": "",
+  "author": "micmor-m",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/micmor-m/lotide/issues"
